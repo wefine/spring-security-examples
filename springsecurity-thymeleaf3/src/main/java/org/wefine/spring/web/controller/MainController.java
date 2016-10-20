@@ -2,7 +2,7 @@ package org.wefine.spring.web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.unbescape.html.HtmlEscape;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +11,7 @@ import java.util.Locale;
 @Controller
 public class MainController {
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public String root(Locale locale) {
         return "redirect:/index.html";
     }
@@ -19,7 +19,7 @@ public class MainController {
     /**
      * Home page.
      */
-    @RequestMapping("/index.html")
+    @GetMapping("/index.html")
     public String index() {
         return "index";
     }
@@ -27,7 +27,7 @@ public class MainController {
     /**
      * User zone index.
      */
-    @RequestMapping("/user/index.html")
+    @GetMapping("/user/index.html")
     public String userIndex() {
         return "user/index";
     }
@@ -35,7 +35,7 @@ public class MainController {
     /**
      * Administration zone index.
      */
-    @RequestMapping("/admin/index.html")
+    @GetMapping("/admin/index.html")
     public String adminIndex() {
         return "admin/index";
     }
@@ -43,7 +43,7 @@ public class MainController {
     /**
      * Shared zone index.
      */
-    @RequestMapping("/shared/index.html")
+    @GetMapping("/shared/index.html")
     public String sharedIndex() {
         return "shared/index";
     }
@@ -51,7 +51,7 @@ public class MainController {
     /**
      * Login form.
      */
-    @RequestMapping("/login.html")
+    @GetMapping("/login.html")
     public String login() {
         return "login";
     }
@@ -59,7 +59,7 @@ public class MainController {
     /**
      * Login form with error.
      */
-    @RequestMapping("/login-error.html")
+    @GetMapping("/login-error.html")
     public String loginError(Model model) {
         model.addAttribute("loginError", true);
         return "login";
@@ -68,7 +68,7 @@ public class MainController {
     /**
      * Simulation of an exception.
      */
-    @RequestMapping("/simulateError.html")
+    @GetMapping("/simulateError.html")
     public void simulateError() {
         throw new RuntimeException("This is a simulated error message");
     }
@@ -76,7 +76,7 @@ public class MainController {
     /**
      * Error page.
      */
-    @RequestMapping("/error.html")
+    @GetMapping("/error.html")
     public String error(HttpServletRequest request, Model model) {
         model.addAttribute("errorCode", "Error " + request.getAttribute("javax.servlet.error.status_code"));
         Throwable throwable = (Throwable) request.getAttribute("javax.servlet.error.exception");
@@ -94,7 +94,7 @@ public class MainController {
     /**
      * Error page.
      */
-    @RequestMapping("/403.html")
+    @GetMapping("/403.html")
     public String forbidden() {
         return "403";
     }
