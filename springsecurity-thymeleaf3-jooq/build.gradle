@@ -94,7 +94,12 @@ dependencies {
 	compile("org.springframework.boot:spring-boot-starter-thymeleaf")
 	compile("org.springframework.boot:spring-boot-starter-web")
 	compile("org.springframework.boot:spring-boot-starter-security")
-
+	compile("org.springframework.data:spring-data-commons")
+    // lombok annotations
+    compile('org.projectlombok:lombok')
+	// jdbc connection pool
+    compile('com.zaxxer:HikariCP')
+    runtime('mysql:mysql-connector-java')
 
 	testCompile("org.springframework.boot:spring-boot-starter-test")
 }

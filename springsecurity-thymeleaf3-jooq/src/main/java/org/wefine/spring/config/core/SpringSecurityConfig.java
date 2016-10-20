@@ -1,4 +1,4 @@
-package org.wefine.spring.config;
+package org.wefine.spring.config.core;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
