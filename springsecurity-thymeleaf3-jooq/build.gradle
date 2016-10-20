@@ -1,37 +1,100 @@
+
 buildscript {
-    repositories {
-        mavenLocal()
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
+	repositories {
+		mavenLocal()
+		jcenter()
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBoot}")
+		classpath("nu.studer:gradle-jooq-plugin:${jooqGradlePlugin}")
+		classpath("mysql:mysql-connector-java:${mysql}")
+	}
+
+	configurations.classpath {
+		resolutionStrategy {
+			forcedModules = [
+				"org.jooq:jooq:${jooq}",
+				"org.jooq:jooq-meta:${jooq}",
+				"org.jooq:jooq-codegen:${jooq}"
+			]
+		}
+	}
 }
 
+// 依赖插件
 apply plugin: 'java'
 apply plugin: 'spring-boot'
+apply plugin: 'nu.studer.jooq'
 
-
+// 项目包名以及版本
 jar {
-    baseName = 'springsecurity-thymeleaf3'
-    version = '1.0.0'
+	baseName = 'springsecurity-thymeleaf3'
+	version = '1.0.0'
 }
-sourceCompatibility = "${javaVersion}"
-targetCompatibility = "${javaVersion}"
+
+// JDK版本
+sourceCompatibility = "${java}"
+targetCompatibility = "${java}"
 
 repositories {
-    mavenLocal()
-    mavenCentral()
+	mavenLocal()
+	jcenter()
+	mavenCentral()
 }
 
+// 源码编码
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
+// JOOQ 代码生成配置
+jooq {
+    config(sourceSets.main) {
+		jdbc {
+			driver = "${jdbcDriver}"
+			url = "${jdbcUrl}"
+			user = "${jdbcUser}"
+			password = "${jdbcPasswd}"
+			schema = "${jdbcSchema}"
+		}
+		generator {
+			name = 'org.jooq.util.DefaultGenerator'
+			strategy {
+				name = 'org.jooq.util.DefaultGeneratorStrategy'
+			}
+			database {
+				name = 'org.jooq.util.mysql.MySQLDatabase'
+				inputSchema = "${jdbcSchema}"
+                includes = ".*"
+                excludes = ""
+			}
+			generate {
+				relations = true            // 主键与外键关系，默认为 true
+				deprecated = false          // 兼容性代码，默认为 true
+				records = true              // ActiveRecord类，默认为 true
+                generatedAnnotation = true  // 生成类的头部注解@Generated，默认为 true
+                pojos = true                // 生成POJO类，默认为 false
+                interfaces = false          // 生成需RECORD、POJO实现的接口，默认为 false
+                daos = false                // 生成基本DAO，默认为 false
+                jpaAnnotations = false      // 生成JPA注解，默认为 false
+                springAnnotations = false   // 生成的DAO中添加@Repository和@Autowired，默认为 false
+				fluentSetters = false       // 生成类中添加相关的 setter 方法，默认为 false
+			}
+			target {
+				packageName = 'org.wefine.spring.jooq'
+                directory = 'build/generated-sources'
+			}
+		}
+	}
+}
+
+// 项目依赖
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
-    compile("org.thymeleaf.extras:thymeleaf-extras-springsecurity4:${thymeleafExtrasSpringsecurity4Version}")
-    compile("org.springframework.boot:spring-boot-starter-web")
-    compile("org.springframework.boot:spring-boot-starter-security")
+	compile("org.thymeleaf.extras:thymeleaf-extras-springsecurity4:${thymeleafExtrasSpringsecurity4}")
+	compile("org.springframework.boot:spring-boot-starter-jooq")
+	compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+	compile("org.springframework.boot:spring-boot-starter-web")
+	compile("org.springframework.boot:spring-boot-starter-security")
 
 
-    testCompile("org.springframework.boot:spring-boot-starter-test")
+	testCompile("org.springframework.boot:spring-boot-starter-test")
 }
