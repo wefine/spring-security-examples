@@ -52,6 +52,14 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
         return conversionService;
     }
 
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // 资源路径需要加上classpath:前缀
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/css/**").addResourceLocations("classpath:/static/css/");
+        registry.addResourceHandler("/favicon.ico").addResourceLocations("classpath:/static/favicon.ico");
+    }
+
     @Bean
     public ResourceBundleMessageSource messageSource() {
         ResourceBundleMessageSource source = new ResourceBundleMessageSource();
