@@ -1,0 +1,52 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+
+allprojects {
+    group 'org.wefine'
+    version '0.1'
+
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'org.springframework.boot'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+    configurations {
+        all*.exclude(group: "commons-logging", module: "commons-logging")
+    }
+
+    dependencies {
+        compile(
+                'org.springframework.boot:spring-boot-starter-web',
+                'org.springframework.boot:spring-boot-starter-security',
+                // thymeleaf
+                "org.thymeleaf:thymeleaf:$thymeleafVersion",
+                "org.thymeleaf:thymeleaf-spring4:$thymeleafVersion",
+                "org.thymeleaf.extras:thymeleaf-extras-java8time:$thymeleafTimeVersion",
+                "org.thymeleaf.extras:thymeleaf-extras-springsecurity4:$thymeleafSecurityVersion",
+                "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:$thymeleafLayoutVersion",
+        )
+
+        runtime('mysql:mysql-connector-java')
+
+        testCompile('org.springframework.boot:spring-boot-starter-test')
+    }
+
+}
+
+
