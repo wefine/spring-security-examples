@@ -30,6 +30,10 @@ allprojects {
         all*.exclude(group: "commons-logging", module: "commons-logging")
     }
 
+    springBoot {
+        mainClass = "org.wefine.spring.Application"
+    }
+
     dependencies {
         compile(
                 'org.springframework.boot:spring-boot-starter-web',
@@ -41,6 +45,8 @@ allprojects {
                 "org.thymeleaf.extras:thymeleaf-extras-springsecurity4:$thymeleafSecurityVersion",
                 "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:$thymeleafLayoutVersion",
         )
+
+        compileOnly('org.projectlombok:lombok')
 
         runtime('mysql:mysql-connector-java')
 

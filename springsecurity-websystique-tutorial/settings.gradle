@@ -1,2 +1,4 @@
 rootProject.name = 'springsecurity-websystique-tutorial'
 include 'springsecurity-01-hello'
+include 'springsecurity-02-loginform'
+

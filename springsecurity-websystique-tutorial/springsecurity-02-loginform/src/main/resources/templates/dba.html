@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>DBA</title>
+</head>
+<body>
+
+Dear <!--/*@thymesVar id="user" type="String"*/-->
+<strong th:text="${user}"></strong>, Welcome to DBA Page.
+
+<a th:href="@{/logout}">Logout</a>
+
+<div th:replace="~{includes/footer :: foot}"></div>
+</body>
+</html>

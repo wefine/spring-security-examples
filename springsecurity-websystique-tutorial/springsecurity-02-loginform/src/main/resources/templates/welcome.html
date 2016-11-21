@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Welcome</title>
+</head>
+<body>
+
+Greeting : <!--/*@thymesVar id="greeting" type="String"*/-->
+<span th:text="${greeting}"></span>
+This is a welcome page.
+
+<div th:replace="~{includes/footer :: foot}"></div>
+</body>
+</html>
