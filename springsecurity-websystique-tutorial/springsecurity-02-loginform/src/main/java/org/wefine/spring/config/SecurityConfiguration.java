@@ -27,13 +27,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
+                .antMatchers("/resources/**", "/", "/home", "/static/**").permitAll()
                 .antMatchers("/admin/**").access("hasRole('ADMIN')")
                 .antMatchers("/db/**").access("hasRole('ADMIN') and hasRole('DBA')")
+                // 下面一行必须放在认证请求的的底部，否则会有行为异常
+                .anyRequest().authenticated()
                 .and()
             .formLogin()
                 .loginPage("/login")
                 .usernameParameter("ssoId")
                 .passwordParameter("password")
+                .permitAll()
                 .and()
             .csrf()
                 .and()

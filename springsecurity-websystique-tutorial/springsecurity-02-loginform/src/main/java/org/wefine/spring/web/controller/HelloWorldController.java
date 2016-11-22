@@ -46,6 +46,8 @@ public class HelloWorldController {
         if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
+
+        // 重定向到登出界面
         return "redirect:/login?logout";
     }
 
