@@ -50,21 +50,10 @@ VALUES ('ADMIN');
 INSERT INTO user_profile (type)
 VALUES ('DBA');
 
-/* Populate APP_USER Table */
+/* Populate one Admin User which will further create other users for the application using GUI */
 INSERT INTO app_user (sso_id, password, first_name, last_name, email, state)
-VALUES ('bill', 'abc123', 'Bill', 'Watcher', 'bill@xyz.com', 'Active');
-
-INSERT INTO app_user (sso_id, password, first_name, last_name, email, state)
-VALUES ('danny', 'abc124', 'Danny', 'Theys', 'danny@xyz.com', 'Active');
-
-INSERT INTO app_user (sso_id, password, first_name, last_name, email, state)
-VALUES ('sam', 'abc125', 'Sam', 'Smith', 'samy@xyz.com', 'Active');
-
-INSERT INTO app_user (sso_id, password, first_name, last_name, email, state)
-VALUES ('nicole', 'abc126', 'Nicole', 'warner', 'nicloe@xyz.com', 'Active');
-
-INSERT INTO app_user (sso_id, password, first_name, last_name, email, state)
-VALUES ('kenny', 'abc127', 'Kenny', 'Roger', 'kenny@xyz.com', 'Active');
+VALUES
+('sam', '$2a$10$4eqIF5s/ewJwHK1p8lqlFOEm2QIA0S8g6./Lok.pQxqcxaBZYChRm', 'Sam', 'Smith', 'samy@xyz.com', 'Active');
 
 /* Populate JOIN Table */
 INSERT INTO app_user_user_profile (user_id, user_profile_id)
@@ -72,39 +61,4 @@ INSERT INTO app_user_user_profile (user_id, user_profile_id)
     user.id,
     profile.id
   FROM app_user user, user_profile profile
-  WHERE user.sso_id = 'bill' AND profile.type = 'USER';
-
-INSERT INTO app_user_user_profile (user_id, user_profile_id)
-  SELECT
-    user.id,
-    profile.id
-  FROM app_user user, user_profile profile
-  WHERE user.sso_id = 'danny' AND profile.type = 'USER';
-
-INSERT INTO app_user_user_profile (user_id, user_profile_id)
-  SELECT
-    user.id,
-    profile.id
-  FROM app_user user, user_profile profile
   WHERE user.sso_id = 'sam' AND profile.type = 'ADMIN';
-
-INSERT INTO app_user_user_profile (user_id, user_profile_id)
-  SELECT
-    user.id,
-    profile.id
-  FROM app_user user, user_profile profile
-  WHERE user.sso_id = 'nicole' AND profile.type = 'DBA';
-
-INSERT INTO app_user_user_profile (user_id, user_profile_id)
-  SELECT
-    user.id,
-    profile.id
-  FROM app_user user, user_profile profile
-  WHERE user.sso_id = 'kenny' AND profile.type = 'ADMIN';
-
-INSERT INTO app_user_user_profile (user_id, user_profile_id)
-  SELECT
-    user.id,
-    profile.id
-  FROM app_user user, user_profile profile
-  WHERE user.sso_id = 'kenny' AND profile.type = 'DBA';

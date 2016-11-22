@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>User Registration Form</title>
+    <link href="/static/css/bootstrap.css" rel="stylesheet" />
+    <link href="/static/css/app.css" rel="stylesheet" />
+</head>
+
+<body>
+
+<div class="form-container">
+
+    <h1>New User Registration Form</h1>
+
+    <!--/*@thymesVar id="user" type="org.wefine.spring.model.User"*/-->
+    <form action="#" th:action="@{/}" th:object="${user}" method="post">
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="firstName">First Name</label>
+                <div class="col-md-7">
+                    <input id="firstName" th:field="*{firstName}" class="form-control input-sm"/>
+                    <div class="has-error">
+                        <span class="help-inline" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">firstName Error</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="lastName">Last Name</label>
+                <div class="col-md-7">
+                    <input id="lastName" th:field="*{lastName}" class="form-control input-sm"/>
+                    <div class="has-error">
+                        <span class="help-inline" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">lastName Error</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="ssoId">SSO ID</label>
+                <div class="col-md-7">
+                    <input id="ssoId" th:field="*{ssoId}" class="form-control input-sm"/>
+                    <div class="has-error">
+                        <span class="help-inline" th:if="${#fields.hasErrors('ssoId')}"
+                              th:errors="*{ssoId}">ssoId Error</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="password">Password</label>
+                <div class="col-md-7">
+                    <input type="password" id="password" th:field="*{password}" class="form-control input-sm"/>
+                    <div class="has-error">
+                        <span class="help-inline" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password Error</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="email">Email</label>
+                <div class="col-md-7">
+                    <input id="email" th:field="*{email}" class="form-control input-sm"/>
+                    <div class="has-error">
+                        <span class="help-inline" th:if="${#fields.hasErrors('email')}"
+                              th:errors="*{email}">email Error</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="userProfiles">Roles</label>
+                <div class="col-md-7">
+                    <select id="userProfiles" name="userProfiles" class="form-control input-sm" multiple="multiple">
+                        <option value="2">ADMIN</option>
+                        <option value="3">DBA</option>
+                        <option value="1">USER</option>
+                    </select>
+                    <input type="hidden" name="_userProfiles" value="1"/>
+                    <div class="has-error">
+                        <span class="help-inline" th:if="${#fields.hasErrors('userProfiles')}"
+                              th:errors="*{userProfiles}">userProfiles Error</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-actions floatRight">
+                <input type="submit" value="Register" class="btn btn-primary btn-sm" /> or
+                <a th:href="@{/admin}">Cancel</a>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

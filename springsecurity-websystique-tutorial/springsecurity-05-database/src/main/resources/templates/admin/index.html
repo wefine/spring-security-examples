@@ -8,9 +8,13 @@
 
 <div th:replace="~{includes/profile :: profile}"></div>
 
-<div>
+<div class="success">
     Dear <!--/*@thymesVar id="user" type="String"*/-->
     <strong th:text="${user}"></strong>, Welcome to Admin Page.
+
+    <br/>
+    Would you like to <a th:href="@{/newUser}">Add Some Users</a> to keep yourself busy?
+
 </div>
 
 <div th:replace="~{includes/footer :: foot}"></div>

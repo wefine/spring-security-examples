@@ -1,9 +1,6 @@
 package org.wefine.spring.config.security;
- 
-import java.util.ArrayList;
-import java.util.List;
- 
-import org.springframework.beans.factory.annotation.Autowired;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,37 +13,37 @@ import org.wefine.spring.model.UserProfile;
 import org.wefine.spring.web.service.UserService;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
-
+@Slf4j
 @Service("customUserDetailsService")
-public class CustomUserDetailsService implements UserDetailsService{
- 
+public class CustomUserDetailsService implements UserDetailsService {
+
     @Resource
     private UserService userService;
-     
-    @Transactional(readOnly=true)
+
     public UserDetails loadUserByUsername(String ssoId)
             throws UsernameNotFoundException {
         User user = userService.findBySso(ssoId);
-        System.out.println("User : "+user);
-        if(user==null){
-            System.out.println("User not found");
+        log.info("User : " + user);
+        if (user == null) {
+            log.info("User not found");
             throw new UsernameNotFoundException("Username not found");
         }
-            return new org.springframework.security.core.userdetails.User(user.getSsoId(), user.getPassword(), 
-                 user.getState().equals("Active"), true, true, true, getGrantedAuthorities(user));
+        return new SecurityUser(user.getSsoId(), user.getPassword(),
+                user.getState().equals("Active"), true, true, true, getGrantedAuthorities(user));
     }
- 
-     
-    private List<GrantedAuthority> getGrantedAuthorities(User user){
-        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-         
-        for(UserProfile userProfile : user.getUserProfiles()){
-            System.out.println("UserProfile : "+userProfile);
-            authorities.add(new SimpleGrantedAuthority("ROLE_"+userProfile.getType()));
+
+    private List<GrantedAuthority> getGrantedAuthorities(User user) {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+
+        for (UserProfile userProfile : user.getUserProfiles()) {
+            log.info("UserProfile : " + userProfile);
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + userProfile.getType()));
         }
-        System.out.print("authorities :"+authorities);
+        log.info("authorities :" + authorities);
+
         return authorities;
     }
-     
 }
