@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Welcome</title>
+</head>
+<body>
+
+<div class="logout" sec:authorize="isAuthenticated()">
+    Logged user: <span sec:authentication="name">Bob</span> |
+    Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span> |
+    <!--/* When using CSRF this needs to be a POST */-->
+    <form th:action="@{/logout}" method="post" style="display:inline"><input type="submit" value="Logout"/></form>
+    <hr/>
+</div>
+
+
+<div>
+    <label>View all information| This part is visible to Everyone</label>
+</div>
+
+<br/>
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+    <label><a href="#">Edit this page</a> | This part is visible only to ADMIN</label>
+</div>
+
+<br/>
+<div sec:authorize="hasRole('ADMIN') and hasRole('DBA')">
+    <label><a href="#">Start backup</a> | This part is visible only to one who is both ADMIN & DBA</label>
+</div>
+
+<div th:replace="~{includes/footer :: foot}"></div>
+</body>
+</html>
