@@ -1,7 +1,7 @@
 package org.wefine.spring.web.controller;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -17,6 +17,7 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.List;
 
+@Slf4j
 @Controller
 public class UserController extends AbstractController {
 
@@ -30,6 +31,7 @@ public class UserController extends AbstractController {
     public String newRegistration(ModelMap model) {
         User user = new User();
         model.addAttribute("user", user);
+
         return "user/new";
     }
 
@@ -47,20 +49,15 @@ public class UserController extends AbstractController {
         }
         userService.save(user);
 
-        System.out.println("First Name : "+user.getFirstName());
-        System.out.println("Last Name : "+user.getLastName());
-        System.out.println("SSO ID : "+user.getSsoId());
-        System.out.println("Password : "+user.getPassword());
-        System.out.println("Email : "+user.getEmail());
-        System.out.println("Checking UsrProfiles....");
-        if(user.getUserProfiles()!=null){
-            for(UserProfile profile : user.getUserProfiles()){
-                System.out.println("Profile : "+ profile.getType());
+        log.info(user.toString());
+        if (user.getUserProfiles() != null) {
+            for (UserProfile profile : user.getUserProfiles()) {
+                log.info("Profile : " + profile.getType());
             }
         }
 
         model.addAttribute("success", "User " + user.getFirstName() + " has been registered successfully");
-        return "registrationsuccess";
+        return "user/success";
     }
 
     @ModelAttribute("roles")

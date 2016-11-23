@@ -1,6 +1,10 @@
 package org.wefine.spring.model;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,18 +17,24 @@ public class User {
     private int id;
 
     @Column(name = "sso_id", unique = true, nullable = false)
+    @Size(min = 4, max = 10)
     private String ssoId;
 
     @Column(name = "password", nullable = false)
+    @Size(min = 4, max = 10)
     private String password;
 
     @Column(name = "first_name", nullable = false)
+    @Size(min = 4, max = 10)
     private String firstName;
 
     @Column(name = "last_name", nullable = false)
+    @Size(min = 4, max = 10)
     private String lastName;
 
     @Column(name = "email", nullable = false)
+    @Email
+    @NotEmpty
     private String email;
 
     @Column(name = "state", nullable = false)

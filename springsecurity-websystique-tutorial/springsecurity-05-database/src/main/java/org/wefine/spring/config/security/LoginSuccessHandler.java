@@ -43,14 +43,14 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
-        List<String> roles = new ArrayList<String>();
+        List<String> roles = new ArrayList<>();
 
         for (GrantedAuthority a : authorities) {
             roles.add(a.getAuthority());
         }
 
         if (isDba(roles)) {
-            url = "/db";
+            url = "/dba";
         } else if (isAdmin(roles)) {
             url = "/admin";
         } else if (isUser(roles)) {
