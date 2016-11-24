@@ -4,4 +4,5 @@ include 'springsecurity-02-loginform'
 include 'springsecurity-03-tags'
 include 'springsecurity-04-rolebased-urlredirect'
 include 'springsecurity-05-database'
+include 'springsecurity-06-remember-me'
 

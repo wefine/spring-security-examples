@@ -1,0 +1,27 @@
+group 'org.wefine'
+version '0.1'
+
+dependencies {
+    compile(
+            'org.springframework.boot:spring-boot-starter-web',
+            'org.springframework.boot:spring-boot-starter-security',
+            'org.springframework:spring-tx',
+            'org.springframework:spring-jdbc',
+            'org.springframework:spring-orm',
+            // thymeleaf
+            "org.thymeleaf:thymeleaf:$thymeleafVersion",
+            "org.thymeleaf:thymeleaf-spring4:$thymeleafVersion",
+            "org.thymeleaf.extras:thymeleaf-extras-java8time:$thymeleafTimeVersion",
+            "org.thymeleaf.extras:thymeleaf-extras-springsecurity4:$thymeleafSecurityVersion",
+            "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:$thymeleafLayoutVersion",
+            // mysql
+            "mysql:mysql-connector-java",
+            "org.hibernate:hibernate-core",
+    )
+
+    compileOnly('org.projectlombok:lombok')
+
+    runtime('mysql:mysql-connector-java')
+
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
