@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Admin</title>
+</head>
+<body>
+
+<div th:replace="~{includes/profile :: profile}"></div>
+
+<div class="success">
+    Dear <!--/*@thymesVar id="user" type="String"*/-->
+    <strong th:text="${user}"></strong>, Welcome to Admin Page.
+
+    <br/>
+    Would you like to <a th:href="@{/newUser}">Add Some Users</a> to keep yourself busy?
+
+</div>
+
+<div th:replace="~{includes/footer :: foot}"></div>
+</body>
+</html>

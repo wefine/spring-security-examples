@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Login page</title>
+    <link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon" />
+    <link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon" />
+    <link th:href="@{/static/css/bootstrap.css}" rel="stylesheet"/>
+    <link th:href="@{/static/css/app.css}" rel="stylesheet"/>
+    <link th:href="@{/static/font-awesome/css/font-awesome.css}" rel="stylesheet"/>
+</head>
+<body>
+
+<div id="mainWrapper">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-form">
+
+                <form th:action="@{/login}" method="post" class="form-horizontal">
+                    <div th:if="${param.error != null}" class="alert alert-danger">
+                        <p>Invalid username and password.</p>
+                    </div>
+                    <div th:if="${param.logout != null}" class="alert alert-success">
+                        <p>You have been logged out successfully.</p>
+                    </div>
+                    <div class="input-group input-sm">
+                        <label class="input-group-addon" for="username">
+                            <i class="fa fa-user"></i>
+                        </label>
+                        <input class="form-control" id="username" name="ssoId" placeholder="Enter Username" required>
+                    </div>
+                    <div class="input-group input-sm">
+                        <label class="input-group-addon" for="password">
+                            <i class="fa fa-lock"></i>
+                        </label>
+                        <input type="password" class="form-control" id="password" name="password"
+                               placeholder="Enter Password" required>
+                    </div>
+                    <div class="input-group input-sm">
+                        <div class="checkbox">
+                            <label><input type="checkbox" id="rememberme" name="remember-me"> Remember Me</label>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <input type="submit" class="btn btn-block btn-primary btn-default" value="Log in">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{includes/footer :: foot}"></div>
+</body>
+</html>

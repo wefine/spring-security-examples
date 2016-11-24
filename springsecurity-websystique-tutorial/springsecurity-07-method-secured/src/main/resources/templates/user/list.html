@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>User List</title>
+</head>
+
+<body>
+<h2>List of Users</h2>
+<table border="1">
+    <tr>
+        <td>id</td>
+        <td>First Name</td>
+        <td>Last Name</td>
+        <td>Type</td>
+        <td></td>
+        <td></td>
+    </tr>
+
+    <!--/*@thymesVar id="users" type="java.util.List<org.wefine.spring.model.User>"*/-->
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.firstName}"></td>
+        <td th:text="${user.lastName}"></td>
+        <td th:text="${user.literalProfiles()}"></td>
+        <td><a th:href="@{'/edit-user-'+${user.id}}">edit</a></td>
+        <td><a th:href="@{'/delete-user-'+${user.id}}">Delete</a></td>
+    </tr>
+</table>
+<br/>
+<a th:href="@{/logout}">Logout</a>
+</body>
+</html>

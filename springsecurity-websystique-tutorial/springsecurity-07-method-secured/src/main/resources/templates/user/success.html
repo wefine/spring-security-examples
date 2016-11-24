@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>User Registration Form</title>
+    <link th:href="@{/static/css/bootstrap.css}" rel="stylesheet"/>
+    <link th:href="@{/static/css/app.css}" rel="stylesheet"/>
+</head>
+<body>
+
+<div class="success">
+    Confirmation message : <!--/*@thymesVar id="success" type="String"*/-->
+    <span th:text="${success}"></span>
+    <br>
+    Would you like to <a th:href="@{/newUser}">Add More Users</a>?
+    <br/>
+    Go to <a th:href="@{/admin}">Admin Page</a> OR <a th:href="@{/logout}">Logout</a>
+</div>
+
+
+<div th:replace="~{includes/footer :: foot}"></div>
+</body>
+</html>
