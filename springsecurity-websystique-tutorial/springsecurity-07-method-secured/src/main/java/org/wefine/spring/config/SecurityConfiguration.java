@@ -14,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.wefine.spring.config.security.LoginFormAuthenticationFilter;
 import org.wefine.spring.config.security.LoginSuccessHandler;
 
 import javax.annotation.Resource;
@@ -43,7 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
 
-        return new BCryptPasswordEncoder(16);
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
@@ -82,5 +84,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         tokenRepository.setDataSource(dataSource);
 
         return new PersistentTokenBasedRememberMeServices(REMEMBER_KEY, userDetailsService, tokenRepository);
+    }
+
+    @Bean
+    public LoginFormAuthenticationFilter loginFormAuthenticationFilter() {
+        LoginFormAuthenticationFilter filter = new LoginFormAuthenticationFilter();
+
+        filter.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/login", "POST"));
+        filter.setRememberMeServices(rememberMeServices());
+        filter.setAuthenticationSuccessHandler(successHandler);
+        filter.setUsernameParameter("ssoId");
+        filter.setPasswordParameter("password");
+
+        return filter;
     }
 }

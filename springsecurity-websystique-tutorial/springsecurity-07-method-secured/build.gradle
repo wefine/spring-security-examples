@@ -17,6 +17,8 @@ dependencies {
             // mysql
             "mysql:mysql-connector-java",
             "org.hibernate:hibernate-core",
+            // captcha
+            "com.github.axet:kaptcha:0.0.9",
     )
 
     compileOnly('org.projectlombok:lombok')
